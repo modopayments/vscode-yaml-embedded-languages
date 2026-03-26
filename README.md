@@ -26,7 +26,7 @@ example: | # <language-identifier>
 To highlight all blocks from a point onwards, place a comment with the extension name followed by the language identifier.
 
 ```yaml
-# yaml-embedded-languages: <language-identifier>
+# modo-yaml-embedded-languages: <language-identifier>
 example: |
   highlighted
 ```
@@ -34,7 +34,7 @@ example: |
 To stop highlighting blocks place a comment with the extension name.
 
 ```yaml
-# yaml-embedded-languages
+# modo-yaml-embedded-languages
 example: |
   not highlighted
 ```
@@ -68,6 +68,7 @@ The following list shows all valid identifiers for the built-in languages:
 | jade             | `jade`                |
 | java             | `java`                |
 | javascript       | `js`, `javascript`    |
+| jq               | `jq`                  |
 | javascriptreact  | `jsx`                 |
 | json             | `json`                |
 | jsonc            | `jsonc`               |
