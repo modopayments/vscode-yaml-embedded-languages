@@ -1,7 +1,7 @@
 {
-  "modo-yaml-embedded-languages": {
-    "prefix": "modo-yaml-embedded-languages",
-    "body": ["# modo-yaml-embedded-languages: $1"],
+  "yaml-embedded-languages": {
+    "prefix": "yaml-embedded-languages",
+    "body": ["# yaml-embedded-languages: $1"],
     "description": "Highlight all blocks from this point onwards with the specified language"
   }
 }

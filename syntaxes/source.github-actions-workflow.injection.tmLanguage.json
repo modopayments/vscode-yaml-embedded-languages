@@ -3,7 +3,7 @@
   "injectionSelector": "L:source.github-actions-workflow -comment -string",
   "patterns": [
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*bat\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*bat\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -70,7 +70,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*bibtex\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*bibtex\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -124,7 +124,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*c\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*c\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -178,7 +178,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*c#\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*c#\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -232,7 +232,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*c\\+\\+\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*c\\+\\+\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -286,7 +286,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*clojure\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*clojure\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -340,7 +340,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*coffee\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*coffee\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -394,7 +394,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*cpp\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*cpp\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -448,7 +448,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*csharp\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*csharp\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -502,7 +502,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*css\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*css\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -556,7 +556,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*cuda\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*cuda\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -610,7 +610,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*dart\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*dart\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -664,7 +664,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*diff\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*diff\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -719,7 +719,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*dockercompose\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*dockercompose\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -774,7 +774,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*dockerfile\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*dockerfile\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -828,7 +828,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*f#\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*f#\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -882,7 +882,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*fsharp\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*fsharp\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -936,7 +936,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*go\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*go\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -990,7 +990,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*groovy\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*groovy\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1044,7 +1044,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*handlebars\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*handlebars\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1098,7 +1098,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*hlsl\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*hlsl\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1152,7 +1152,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*html\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*html\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1206,7 +1206,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*ini\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*ini\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1260,7 +1260,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*jade\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*jade\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1314,7 +1314,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*java\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*java\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1368,7 +1368,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*javascript\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*javascript\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1422,7 +1422,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*jq\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*jq\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1476,7 +1476,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*js\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*js\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1530,7 +1530,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*json\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*json\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1584,7 +1584,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*jsonc\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*jsonc\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1638,7 +1638,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*jsonl\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*jsonl\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1692,7 +1692,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*jsx\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*jsx\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1746,7 +1746,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*julia\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*julia\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1800,7 +1800,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*latex\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*latex\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1855,7 +1855,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*less\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*less\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1909,7 +1909,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*log\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*log\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -1963,7 +1963,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*lua\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*lua\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2017,7 +2017,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*make\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*make\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2071,7 +2071,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*makefile\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*makefile\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2125,7 +2125,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*markdown\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*markdown\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2180,7 +2180,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*math\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*math\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2234,7 +2234,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*objc\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*objc\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2288,7 +2288,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*objcpp\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*objcpp\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2342,7 +2342,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*perl\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*perl\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2396,7 +2396,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*php\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*php\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2450,7 +2450,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*pip\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*pip\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2504,7 +2504,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*powerfx\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*powerfx\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2558,7 +2558,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*powershell\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*powershell\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2612,7 +2612,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*properties\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*properties\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2666,7 +2666,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*py\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*py\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2720,7 +2720,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*python\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*python\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2774,7 +2774,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*r\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*r\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2828,7 +2828,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*raku\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*raku\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2882,7 +2882,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*razor\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*razor\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2936,7 +2936,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*regex\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*regex\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -2990,7 +2990,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*requirements\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*requirements\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3044,7 +3044,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*rst\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*rst\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3098,7 +3098,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*ruby\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*ruby\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3152,7 +3152,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*rust\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*rust\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3206,7 +3206,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*scss\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*scss\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3260,7 +3260,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*shaderlab\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*shaderlab\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3314,7 +3314,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*shell\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*shell\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3368,7 +3368,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*sql\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*sql\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3422,7 +3422,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*swift\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*swift\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3476,7 +3476,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*tex\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*tex\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3530,7 +3530,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*ts\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*ts\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3584,7 +3584,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*tsx\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*tsx\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3638,7 +3638,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*typescript\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*typescript\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3692,7 +3692,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*vb\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*vb\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3746,7 +3746,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*xml\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*xml\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3800,7 +3800,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*xsl\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*xsl\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"
@@ -3854,7 +3854,7 @@
       ]
     },
     {
-      "begin": "#\\s*modo-yaml-embedded-languages\\s*:\\s*yaml\\s*$",
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*yaml\\s*$",
       "beginCaptures": {
         "0": {
           "name": "entity.name.type.yaml"

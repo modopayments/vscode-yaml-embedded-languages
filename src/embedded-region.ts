@@ -13,7 +13,7 @@ export interface EmbeddedRegion {
  * Scans a document for YAML block-scalar regions tagged with an embedded
  * language comment, using the same trigger patterns as the injection grammar:
  *
- *   Prefix:  # modo-yaml-embedded-languages: python
+ *   Prefix:  # yaml-embedded-languages: python
  *   Inline:  script: | # python
  */
 export function getEmbeddedRegions(
@@ -24,12 +24,12 @@ export function getEmbeddedRegions(
   const entries = Object.entries(languages);
   const langPatternStr = entries.map(([id]) => id).join("|");
 
-  // Mirrors grammar pattern: # modo-yaml-embedded-languages: python
+  // Mirrors grammar pattern: # yaml-embedded-languages: python
   const prefixRe = new RegExp(
     `^\\s*#\\s*${packageJson.name}\\s*:\\s*(${langPatternStr})\\s*$`,
     "i",
   );
-  // Mirrors grammar disable: # modo-yaml-embedded-languages (no language)
+  // Mirrors grammar disable: # yaml-embedded-languages (no language)
   const disableRe = new RegExp(`^\\s*#\\s*${packageJson.name}\\s*$`, "i");
   // Mirrors inline grammar pattern: | # python  or  >- # javascript
   const inlineRe = new RegExp(

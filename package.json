@@ -1,5 +1,5 @@
 {
-  "name": "modo-yaml-embedded-languages",
+  "name": "yaml-embedded-languages",
   "version": "1.3.0",
   "displayName": "YAML Embedded Languages",
   "description": "Support for syntax highlighting within YAML block-scalars.",
@@ -193,7 +193,7 @@
     "configuration": {
       "title": "YAML Embedded Languages",
       "properties": {
-        "modo-yaml-embedded-languages.include": {
+        "yaml-embedded-languages.include": {
           "type": "object",
           "patternProperties": {
             "^.*$": {
@@ -257,7 +257,7 @@
     "format": "prettier . --check",
     "type": "tsc --noEmit",
     "package": "vsce package",
-    "release": "gh release create v$npm_package_version --generate-notes modo-yaml-embedded-languages-$npm_package_version.vsix",
+    "release": "gh release create v$npm_package_version --generate-notes yaml-embedded-languages-$npm_package_version.vsix",
     "publish": "vsce publish"
   }
 }

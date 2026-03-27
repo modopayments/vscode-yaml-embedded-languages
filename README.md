@@ -26,7 +26,7 @@ example: | # <language-identifier>
 To highlight all blocks from a point onwards, place a comment with the extension name followed by the language identifier.
 
 ```yaml
-# modo-yaml-embedded-languages: <language-identifier>
+# yaml-embedded-languages: <language-identifier>
 example: |
   highlighted
 ```
@@ -34,7 +34,7 @@ example: |
 To stop highlighting blocks place a comment with the extension name.
 
 ```yaml
-# modo-yaml-embedded-languages
+# yaml-embedded-languages
 example: |
   not highlighted
 ```
