@@ -67,7 +67,11 @@ export function registerEmbeddedLanguageFeatures(
       for (const region of regions) {
         if (seen.has(region.languageId)) continue;
         seen.add(region.languageId);
-        provider.notifyChanged(toVirtualUri(e.document.uri, region));
+        const virtualUri = toVirtualUri(e.document.uri, region);
+        provider.notifyChanged(virtualUri);
+        // Force VSCode to immediately re-fetch and propagate the updated
+        // content to the LSP, rather than waiting for its lazy refresh.
+        vscode.workspace.openTextDocument(virtualUri);
       }
     }),
   );
@@ -224,34 +228,4 @@ export function registerEmbeddedLanguageFeatures(
     }),
   );
 
-  // --- Diagnostics ---
-
-  const diagnosticCollection =
-    vscode.languages.createDiagnosticCollection("yaml-embedded");
-  context.subscriptions.push(diagnosticCollection);
-
-  context.subscriptions.push(
-    vscode.languages.onDidChangeDiagnostics((e) => {
-      // Collect the original YAML URIs affected by changed virtual doc diagnostics
-      const yamlUris = new Map<string, vscode.Uri>();
-      for (const uri of e.uris) {
-        if (uri.scheme !== VIRTUAL_SCHEME) continue;
-        const { originalUri } = fromVirtualUri(uri);
-        yamlUris.set(originalUri.toString(), originalUri);
-      }
-
-      for (const [, yamlUri] of yamlUris) {
-        const doc = vscode.workspace.textDocuments.find(
-          (d) => d.uri.toString() === yamlUri.toString(),
-        );
-        if (!doc) continue;
-
-        const regions = getEmbeddedRegions(doc, getLanguages());
-        const diagnostics = regions.flatMap((region) =>
-          vscode.languages.getDiagnostics(toVirtualUri(yamlUri, region)),
-        );
-        diagnosticCollection.set(yamlUri, diagnostics);
-      }
-    }),
-  );
 }
