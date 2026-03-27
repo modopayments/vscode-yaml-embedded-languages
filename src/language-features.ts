@@ -195,4 +195,32 @@ export function registerEmbeddedLanguageFeatures(
     ),
   );
 
+  // --- Find references ---
+
+  context.subscriptions.push(
+    vscode.languages.registerReferenceProvider(YAML_SELECTOR, {
+      async provideReferences(document, position) {
+        const region = regionAt(
+          getEmbeddedRegions(document, getLanguages()),
+          position,
+        );
+        if (!region) return;
+
+        const result = await vscode.commands.executeCommand<vscode.Location[]>(
+          "vscode.executeReferenceProvider",
+          toVirtualUri(document.uri, region),
+          position,
+        );
+        if (!result?.length) return;
+
+        // Map virtual document URIs back to the original YAML document
+        const mapUri = (uri: vscode.Uri) =>
+          uri.scheme === VIRTUAL_SCHEME ? fromVirtualUri(uri).originalUri : uri;
+
+        return result.map(
+          (loc) => new vscode.Location(mapUri(loc.uri), loc.range),
+        );
+      },
+    }),
+  );
 }
