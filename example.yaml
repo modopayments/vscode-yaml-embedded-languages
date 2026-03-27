@@ -139,6 +139,9 @@ javascriptreact-example: | # jsx
     return <h1>Hello, World!</h1>;
   };
 
+jq-example: | # jq
+  [0, 1] | first | . * 2
+
 json-example: | # json
   {
     "message": "Hello, World!"

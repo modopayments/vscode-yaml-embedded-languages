@@ -3,7 +3,9 @@ import { InjectionGrammar } from "./injection-grammar";
 import { Package } from "./package";
 import { hasKey, isBoolean, isObject, isString } from "./utils";
 
-const parseLanguages = (languages: { [key: string]: unknown }): Languages => {
+export const parseLanguages = (languages: {
+  [key: string]: unknown;
+}): Languages => {
   const parsedLanguages: Languages = {};
   for (const id in languages) {
     let language = languages[id];
