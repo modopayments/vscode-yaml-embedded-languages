@@ -228,4 +228,39 @@ export function registerEmbeddedLanguageFeatures(
     }),
   );
 
+  // --- Folding ranges ---
+
+  context.subscriptions.push(
+    vscode.languages.registerFoldingRangeProvider(YAML_SELECTOR, {
+      async provideFoldingRanges(document) {
+        const regions = getEmbeddedRegions(document, getLanguages());
+        if (!regions.length) return;
+
+        const all: vscode.FoldingRange[] = [];
+        for (const region of regions) {
+          let result: vscode.FoldingRange[] = [];
+          try {
+            result = await vscode.commands.executeCommand<
+              vscode.FoldingRange[]
+            >(
+              "vscode.executeFoldingRangeProvider",
+              toVirtualUri(document.uri, region),
+            );
+          } catch {
+            continue; // Not clue why this seems to fail sometimes! But this works
+          }
+          if (!result?.length) continue;
+
+          const { start, end } = region.range;
+          for (const fr of result) {
+            if (fr.start >= start.line && fr.end <= end.line) {
+              all.push(fr);
+            }
+          }
+        }
+        return all;
+      },
+    }),
+  );
+
 }
