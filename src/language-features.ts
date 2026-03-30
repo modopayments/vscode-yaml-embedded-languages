@@ -63,14 +63,9 @@ export function registerEmbeddedLanguageFeatures(
         return;
       }
       const regions = getEmbeddedRegions(e.document, getLanguages());
-      const seen = new Set<string>();
       for (const region of regions) {
-        if (seen.has(region.languageId)) continue;
-        seen.add(region.languageId);
         const virtualUri = toVirtualUri(e.document.uri, region);
         provider.notifyChanged(virtualUri);
-        // Force VSCode to immediately re-fetch and propagate the updated
-        // content to the LSP, rather than waiting for its lazy refresh.
         vscode.workspace.openTextDocument(virtualUri);
       }
     }),
@@ -228,6 +223,105 @@ export function registerEmbeddedLanguageFeatures(
     }),
   );
 
+  // --- Diagnostics ---
+
+  const diagnosticCollection =
+    vscode.languages.createDiagnosticCollection("yaml-embedded");
+  context.subscriptions.push(diagnosticCollection);
+
+  context.subscriptions.push(
+    vscode.languages.onDidChangeDiagnostics((e) => {
+      // Collect the original YAML URIs affected by changed virtual doc diagnostics
+      const yamlUris = new Map<string, vscode.Uri>();
+      for (const uri of e.uris) {
+        if (uri.scheme !== VIRTUAL_SCHEME) continue;
+        const { originalUri } = fromVirtualUri(uri);
+        yamlUris.set(originalUri.toString(), originalUri);
+      }
+
+      for (const [, yamlUri] of yamlUris) {
+        const doc = vscode.workspace.textDocuments.find(
+          (d) => d.uri.toString() === yamlUri.toString(),
+        );
+        if (!doc) continue;
+
+        const regions = getEmbeddedRegions(doc, getLanguages());
+        const diagnostics = regions.flatMap((region) =>
+          vscode.languages.getDiagnostics(toVirtualUri(yamlUri, region)),
+        );
+        diagnosticCollection.set(yamlUri, diagnostics);
+      }
+    }),
+  );
+
+  // --- Document highlights ---
+  // Don't think this does us much good
+
+  context.subscriptions.push(
+    vscode.languages.registerDocumentHighlightProvider(YAML_SELECTOR, {
+      async provideDocumentHighlights(document, position) {
+        const region = regionAt(
+          getEmbeddedRegions(document, getLanguages()),
+          position,
+        );
+        if (!region) return;
+
+        return vscode.commands.executeCommand<vscode.DocumentHighlight[]>(
+          "vscode.executeDocumentHighlights",
+          toVirtualUri(document.uri, region),
+          position,
+        );
+      },
+    }),
+  );
+
+  // --- Document symbols ---
+  // Don't think this does us much good
+
+  context.subscriptions.push(
+    vscode.languages.registerDocumentSymbolProvider(YAML_SELECTOR, {
+      async provideDocumentSymbols(document) {
+        const regions = getEmbeddedRegions(document, getLanguages());
+        if (!regions.length) return;
+
+        // VS Code requires either SymbolInformation[] or DocumentSymbol[] —
+        // not a mixed array — so we keep them separate.
+        const symbolInfos: vscode.SymbolInformation[] = [];
+        const docSymbols: vscode.DocumentSymbol[] = [];
+
+        for (const region of regions) {
+          const result = await vscode.commands.executeCommand<
+            vscode.SymbolInformation[] | vscode.DocumentSymbol[]
+          >(
+            "vscode.executeDocumentSymbolProvider",
+            toVirtualUri(document.uri, region),
+          );
+          if (!result?.length) continue;
+
+          // SymbolInformation has a `location` with a URI that needs remapping;
+          // DocumentSymbol has no URI (just ranges), so it passes through as-is.
+          if ("location" in result[0]) {
+            for (const sym of result as vscode.SymbolInformation[]) {
+              symbolInfos.push(
+                new vscode.SymbolInformation(
+                  sym.name,
+                  sym.kind,
+                  sym.containerName,
+                  new vscode.Location(document.uri, sym.location.range),
+                ),
+              );
+            }
+          } else {
+            docSymbols.push(...(result as vscode.DocumentSymbol[]));
+          }
+        }
+
+        if (docSymbols.length) return docSymbols;
+        if (symbolInfos.length) return symbolInfos;
+      },
+    }),
+  );
+
   // --- Folding ranges ---
 
   context.subscriptions.push(
@@ -262,5 +356,4 @@ export function registerEmbeddedLanguageFeatures(
       },
     }),
   );
-
 }
