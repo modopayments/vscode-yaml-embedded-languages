@@ -1,0 +1,359 @@
+import * as vscode from "vscode";
+import { Languages } from "./constants";
+import { EmbeddedRegion, getEmbeddedRegions } from "./embedded-region";
+import {
+  VIRTUAL_SCHEME,
+  VirtualDocumentProvider,
+  buildVirtualContent,
+  fromVirtualUri,
+  toVirtualUri,
+} from "./virtual-document";
+
+const YAML_SELECTOR: vscode.DocumentSelector = [
+  { language: "yaml" },
+  { language: "github-actions-workflow" },
+];
+
+export function regionAt(
+  regions: EmbeddedRegion[],
+  position: vscode.Position,
+): EmbeddedRegion | undefined {
+  return regions.find((r) => r.range.contains(position));
+}
+
+/**
+ * Registers a virtual document provider and language feature providers
+ * (hover, completions, go-to-definition, signature help) for YAML files.
+ *
+ * Uses the VSCode request-forwarding pattern described at:
+ * https://code.visualstudio.com/api/language-extensions/embedded-languages
+ *
+ * Requests are intercepted at the YAML document, a virtual document is
+ * constructed for the embedded language (with surrounding YAML replaced by
+ * spaces to preserve character offsets), and then the request is delegated
+ * to the existing language extension via `executeCommand`.
+ */
+export function registerEmbeddedLanguageFeatures(
+  context: vscode.ExtensionContext,
+  getLanguages: () => Languages,
+): void {
+  // --- Virtual document provider ---
+
+  const provider = new VirtualDocumentProvider((originalUri, region) => {
+    const doc = vscode.workspace.textDocuments.find(
+      (d) => d.uri.toString() === originalUri.toString(),
+    );
+    if (!doc) return "";
+    return buildVirtualContent(doc, region);
+  });
+
+  context.subscriptions.push(
+    vscode.workspace.registerTextDocumentContentProvider(
+      VIRTUAL_SCHEME,
+      provider,
+    ),
+  );
+
+  // Notify virtual docs when the underlying YAML file changes
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeTextDocument((e) => {
+      if (
+        !["yaml", "github-actions-workflow"].includes(e.document.languageId)
+      ) {
+        return;
+      }
+      const regions = getEmbeddedRegions(e.document, getLanguages());
+      for (const region of regions) {
+        const virtualUri = toVirtualUri(e.document.uri, region);
+        provider.notifyChanged(virtualUri);
+        vscode.workspace.openTextDocument(virtualUri);
+      }
+    }),
+  );
+
+  // --- Hover ---
+
+  context.subscriptions.push(
+    vscode.languages.registerHoverProvider(YAML_SELECTOR, {
+      async provideHover(document, position) {
+        const region = regionAt(
+          getEmbeddedRegions(document, getLanguages()),
+          position,
+        );
+        if (!region) return;
+
+        const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
+          "vscode.executeHoverProvider",
+          toVirtualUri(document.uri, region),
+          position,
+        );
+        if (!hovers?.length) return;
+        return new vscode.Hover(hovers.flatMap((h) => h.contents));
+      },
+    }),
+  );
+
+  // --- Completions ---
+
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider(
+      YAML_SELECTOR,
+      {
+        async provideCompletionItems(document, position, _token, ctx) {
+          const region = regionAt(
+            getEmbeddedRegions(document, getLanguages()),
+            position,
+          );
+          if (!region) return;
+
+          const result = await vscode.commands.executeCommand<
+            vscode.CompletionList | vscode.CompletionItem[]
+          >(
+            "vscode.executeCompletionItemProvider",
+            toVirtualUri(document.uri, region),
+            position,
+            ctx.triggerCharacter,
+          );
+          if (!result) return;
+          return Array.isArray(result) ? result : result.items;
+        },
+      },
+      // Common trigger characters across languages; providers filter the rest
+      // TODO: Claude made these up
+      ".",
+      ":",
+      '"',
+      "'",
+      "/",
+      "<",
+      "{",
+      "(",
+      "@",
+    ),
+  );
+
+  // --- Go to definition ---
+
+  context.subscriptions.push(
+    vscode.languages.registerDefinitionProvider(YAML_SELECTOR, {
+      async provideDefinition(document, position) {
+        const region = regionAt(
+          getEmbeddedRegions(document, getLanguages()),
+          position,
+        );
+        if (!region) return;
+
+        const result = await vscode.commands.executeCommand<vscode.Definition>(
+          "vscode.executeDefinitionProvider",
+          toVirtualUri(document.uri, region),
+          position,
+        );
+        if (!result) return;
+
+        // Map virtual document URIs back to the original YAML document
+        const mapUri = (uri: vscode.Uri) =>
+          uri.scheme === VIRTUAL_SCHEME ? fromVirtualUri(uri).originalUri : uri;
+
+        const locations = Array.isArray(result) ? result : [result];
+        return locations.map((item) => {
+          if (item instanceof vscode.Location) {
+            return new vscode.Location(mapUri(item.uri), item.range);
+          }
+          const link = item as vscode.LocationLink;
+          return new vscode.Location(
+            mapUri(link.targetUri),
+            link.targetSelectionRange ?? link.targetRange,
+          );
+        });
+      },
+    }),
+  );
+
+  // --- Signature help ---
+
+  context.subscriptions.push(
+    vscode.languages.registerSignatureHelpProvider(
+      YAML_SELECTOR,
+      {
+        async provideSignatureHelp(document, position) {
+          const region = regionAt(
+            getEmbeddedRegions(document, getLanguages()),
+            position,
+          );
+          if (!region) return;
+
+          return vscode.commands.executeCommand<vscode.SignatureHelp>(
+            "vscode.executeSignatureHelpProvider",
+            toVirtualUri(document.uri, region),
+            position,
+          );
+        },
+      },
+      "(",
+      ",",
+    ),
+  );
+
+  // --- Find references ---
+
+  context.subscriptions.push(
+    vscode.languages.registerReferenceProvider(YAML_SELECTOR, {
+      async provideReferences(document, position) {
+        const region = regionAt(
+          getEmbeddedRegions(document, getLanguages()),
+          position,
+        );
+        if (!region) return;
+
+        const result = await vscode.commands.executeCommand<vscode.Location[]>(
+          "vscode.executeReferenceProvider",
+          toVirtualUri(document.uri, region),
+          position,
+        );
+        if (!result?.length) return;
+
+        // Map virtual document URIs back to the original YAML document
+        const mapUri = (uri: vscode.Uri) =>
+          uri.scheme === VIRTUAL_SCHEME ? fromVirtualUri(uri).originalUri : uri;
+
+        return result.map(
+          (loc) => new vscode.Location(mapUri(loc.uri), loc.range),
+        );
+      },
+    }),
+  );
+
+  // --- Diagnostics ---
+
+  const diagnosticCollection =
+    vscode.languages.createDiagnosticCollection("yaml-embedded");
+  context.subscriptions.push(diagnosticCollection);
+
+  context.subscriptions.push(
+    vscode.languages.onDidChangeDiagnostics((e) => {
+      // Collect the original YAML URIs affected by changed virtual doc diagnostics
+      const yamlUris = new Map<string, vscode.Uri>();
+      for (const uri of e.uris) {
+        if (uri.scheme !== VIRTUAL_SCHEME) continue;
+        const { originalUri } = fromVirtualUri(uri);
+        yamlUris.set(originalUri.toString(), originalUri);
+      }
+
+      for (const [, yamlUri] of yamlUris) {
+        const doc = vscode.workspace.textDocuments.find(
+          (d) => d.uri.toString() === yamlUri.toString(),
+        );
+        if (!doc) continue;
+
+        const regions = getEmbeddedRegions(doc, getLanguages());
+        const diagnostics = regions.flatMap((region) =>
+          vscode.languages.getDiagnostics(toVirtualUri(yamlUri, region)),
+        );
+        diagnosticCollection.set(yamlUri, diagnostics);
+      }
+    }),
+  );
+
+  // --- Document highlights ---
+  // Don't think this does us much good
+
+  context.subscriptions.push(
+    vscode.languages.registerDocumentHighlightProvider(YAML_SELECTOR, {
+      async provideDocumentHighlights(document, position) {
+        const region = regionAt(
+          getEmbeddedRegions(document, getLanguages()),
+          position,
+        );
+        if (!region) return;
+
+        return vscode.commands.executeCommand<vscode.DocumentHighlight[]>(
+          "vscode.executeDocumentHighlights",
+          toVirtualUri(document.uri, region),
+          position,
+        );
+      },
+    }),
+  );
+
+  // --- Document symbols ---
+  // Don't think this does us much good
+
+  context.subscriptions.push(
+    vscode.languages.registerDocumentSymbolProvider(YAML_SELECTOR, {
+      async provideDocumentSymbols(document) {
+        const regions = getEmbeddedRegions(document, getLanguages());
+        if (!regions.length) return;
+
+        // VS Code requires either SymbolInformation[] or DocumentSymbol[] —
+        // not a mixed array — so we keep them separate.
+        const symbolInfos: vscode.SymbolInformation[] = [];
+        const docSymbols: vscode.DocumentSymbol[] = [];
+
+        for (const region of regions) {
+          const result = await vscode.commands.executeCommand<
+            vscode.SymbolInformation[] | vscode.DocumentSymbol[]
+          >(
+            "vscode.executeDocumentSymbolProvider",
+            toVirtualUri(document.uri, region),
+          );
+          if (!result?.length) continue;
+
+          // SymbolInformation has a `location` with a URI that needs remapping;
+          // DocumentSymbol has no URI (just ranges), so it passes through as-is.
+          if ("location" in result[0]) {
+            for (const sym of result as vscode.SymbolInformation[]) {
+              symbolInfos.push(
+                new vscode.SymbolInformation(
+                  sym.name,
+                  sym.kind,
+                  sym.containerName,
+                  new vscode.Location(document.uri, sym.location.range),
+                ),
+              );
+            }
+          } else {
+            docSymbols.push(...(result as vscode.DocumentSymbol[]));
+          }
+        }
+
+        if (docSymbols.length) return docSymbols;
+        if (symbolInfos.length) return symbolInfos;
+      },
+    }),
+  );
+
+  // --- Folding ranges ---
+
+  context.subscriptions.push(
+    vscode.languages.registerFoldingRangeProvider(YAML_SELECTOR, {
+      async provideFoldingRanges(document) {
+        const regions = getEmbeddedRegions(document, getLanguages());
+        if (!regions.length) return;
+
+        const all: vscode.FoldingRange[] = [];
+        for (const region of regions) {
+          let result: vscode.FoldingRange[] = [];
+          try {
+            result = await vscode.commands.executeCommand<
+              vscode.FoldingRange[]
+            >(
+              "vscode.executeFoldingRangeProvider",
+              toVirtualUri(document.uri, region),
+            );
+          } catch {
+            continue; // Not clue why this seems to fail sometimes! But this works
+          }
+          if (!result?.length) continue;
+
+          const { start, end } = region.range;
+          for (const fr of result) {
+            if (fr.start >= start.line && fr.end <= end.line) {
+              all.push(fr);
+            }
+          }
+        }
+        return all;
+      },
+    }),
+  );
+}

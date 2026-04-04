@@ -3,15 +3,24 @@ import packageJson from "@package";
 import {
   INCLUDE_CONFIG,
   LANGUAGES,
+  Languages,
   SUB_INCLUDE_CONFIG,
   VERSION_STATE,
 } from "./constants";
-import { generateFiles } from "./generate";
+import { generateFiles, parseLanguages } from "./generate";
+import { registerEmbeddedLanguageFeatures } from "./language-features";
+
+export let currentLanguages: Languages = parseLanguages({
+  ...LANGUAGES,
+  ...vscode.workspace.getConfiguration(packageJson.name)[SUB_INCLUDE_CONFIG],
+});
 
 const updateExtension = () => {
   const settings = vscode.workspace.getConfiguration(packageJson.name);
   const includeLanguages = settings[SUB_INCLUDE_CONFIG];
   const allLanguages = { ...LANGUAGES, ...includeLanguages };
+
+  currentLanguages = parseLanguages(allLanguages);
 
   const filesChanged = generateFiles(allLanguages);
 
@@ -42,6 +51,8 @@ export const activate = (context: vscode.ExtensionContext) => {
   });
 
   context.subscriptions.push(disposable);
+
+  registerEmbeddedLanguageFeatures(context, () => currentLanguages);
 };
 
-export const deactivate = () => {};
+export const deactivate = () => { };

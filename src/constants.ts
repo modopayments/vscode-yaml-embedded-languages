@@ -62,6 +62,7 @@ export const LANGUAGES = {
   jade: "text.pug",
   java: "source.java",
   javascript: "source.js",
+  jq: "source.jq",
   js: {
     name: "javascript",
     scopeName: "source.js",

@@ -68,6 +68,7 @@ The following list shows all valid identifiers for the built-in languages:
 | jade             | `jade`                |
 | java             | `java`                |
 | javascript       | `js`, `javascript`    |
+| jq               | `jq`                  |
 | javascriptreact  | `jsx`                 |
 | json             | `json`                |
 | jsonc            | `jsonc`               |

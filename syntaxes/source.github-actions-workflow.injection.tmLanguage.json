@@ -1422,6 +1422,60 @@
       ]
     },
     {
+      "begin": "#\\s*yaml-embedded-languages\\s*:\\s*jq\\s*$",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.name.type.yaml"
+        }
+      },
+      "patterns": [
+        {
+          "begin": "(?i)(?:(\\|)|(>))([1-9])?([-+])?(.*)\\s*$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.flow.block-scalar.literal.yaml"
+            },
+            "2": {
+              "name": "keyword.control.flow.block-scalar.folded.yaml"
+            },
+            "3": {
+              "name": "constant.numeric.indentation-indicator.yaml"
+            },
+            "4": {
+              "name": "storage.modifier.chomping-indicator.yaml"
+            },
+            "5": {
+              "patterns": [
+                {
+                  "include": "source.github-actions-workflow#comment"
+                },
+                {
+                  "match": ".+",
+                  "name": "invalid.illegal.expected-comment-or-newline.yaml"
+                }
+              ]
+            }
+          },
+          "end": "^(?=\\S)|(?!\\G)",
+          "patterns": [
+            {
+              "begin": "(?>^|\\G)([ ]+)(?! )",
+              "end": "^(?!\\1|\\s*$)",
+              "name": "meta.embedded.inline.jq",
+              "patterns": [
+                {
+                  "include": "source.jq"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "source.github-actions-workflow"
+        }
+      ]
+    },
+    {
       "begin": "#\\s*yaml-embedded-languages\\s*:\\s*js\\s*$",
       "beginCaptures": {
         "0": {
@@ -4709,6 +4763,39 @@
           "patterns": [
             {
               "include": "source.js"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "begin": "(?i)(?:(\\|)|(>))([1-9])?([-+])?\\s+(#\\s*(?:jq)\\s*)$",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.flow.block-scalar.literal.yaml"
+        },
+        "2": {
+          "name": "keyword.control.flow.block-scalar.folded.yaml"
+        },
+        "3": {
+          "name": "constant.numeric.indentation-indicator.yaml"
+        },
+        "4": {
+          "name": "storage.modifier.chomping-indicator.yaml"
+        },
+        "5": {
+          "name": "entity.name.type.yaml"
+        }
+      },
+      "end": "^(?=\\S)|(?!\\G)",
+      "patterns": [
+        {
+          "begin": "(?>^|\\G)([ ]+)(?! )",
+          "end": "^(?!\\1|\\s*$)",
+          "name": "meta.embedded.inline.jq",
+          "patterns": [
+            {
+              "include": "source.jq"
             }
           ]
         }

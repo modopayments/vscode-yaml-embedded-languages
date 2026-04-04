@@ -4,15 +4,15 @@
   "displayName": "YAML Embedded Languages",
   "description": "Support for syntax highlighting within YAML block-scalars.",
   "icon": "images/icon.png",
-  "publisher": "harrydowning",
+  "publisher": "modopayments",
   "author": {
-    "name": "Harry Downing",
-    "email": "harrydowning.dev@gmail.com"
+    "name": "William Floyd",
+    "email": "william.floyd@modopayments.com"
   },
-  "homepage": "https://github.com/harrydowning/vscode-yaml-embedded-languages#readme",
+  "homepage": "https://github.com/modopayments/vscode-yaml-embedded-languages#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/harrydowning/vscode-yaml-embedded-languages.git"
+    "url": "https://github.com/modopayments/vscode-yaml-embedded-languages.git"
   },
   "license": "MIT",
   "engines": {
@@ -60,6 +60,7 @@
           "meta.embedded.inline.jade": "jade",
           "meta.embedded.inline.java": "java",
           "meta.embedded.inline.javascript": "javascript",
+          "meta.embedded.inline.jq": "jq",
           "meta.embedded.inline.js": "javascript",
           "meta.embedded.inline.json": "json",
           "meta.embedded.inline.jsonc": "jsonc",
@@ -140,6 +141,7 @@
           "meta.embedded.inline.jade": "jade",
           "meta.embedded.inline.java": "java",
           "meta.embedded.inline.javascript": "javascript",
+          "meta.embedded.inline.jq": "jq",
           "meta.embedded.inline.js": "javascript",
           "meta.embedded.inline.json": "json",
           "meta.embedded.inline.jsonc": "jsonc",
